@@ -1,0 +1,8 @@
+.cell{
+    height: 150px;
+    width: 150px;
+    background-color: #AAAAAA;
+    display: inline-block;
+    font-size: calc(20px + 2vmin);
+    color: blue;
+}
