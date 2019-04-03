@@ -7,7 +7,7 @@ class Box extends Component {
     }
 
     render(){
-        return(<button className="cell">
+        return(<button onClick={this.props.onClick} className="cell">
             {this.props.value}
         </button>);
     }
