@@ -6,6 +6,8 @@ class Box extends Component {
     }
 
     render(){
-        return(<div></div>);
+        return(<button>
+            {this.props.value}
+        </button>);
     }
 }
