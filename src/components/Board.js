@@ -6,28 +6,40 @@ class Board extends Component {
         super(props);
         this.state = {
             boxValues: Array(9).fill(null),
-            isComputer: false
+            winner: null
         }
     }
 
     handleBoxClick(i){
-        let boxValues = [...this.state.boxValues];
-        boxValues[i] = 'X';
+        if(!this.state.winner){
+            let boxValues = [...this.state.boxValues];
+            boxValues[i] = 'X';
+            let winner = this.decideWinner(boxValues);
 
-        this.setState({
-            boxValues: boxValues,
-            isComputer: !this.state.isComputer
-        });
+           if(!winner){
+                let random = Math.floor(Math.random()*10);
+                while(boxValues[random]){
+                    random = Math.floor(Math.random()*10);
+                }
+                boxValues[random] = 'O';
+                winner = this.decideWinner(boxValues);
 
-        //Calculate the winner
+            }
+
+            this.setState({
+                boxValues: boxValues,
+                winner: winner
+            });
+        }
+
     }
 
     renderBox(i){
         return ( <Box onClick={()=>{this.handleBoxClick(i)}} value={this.state.boxValues[i]}/>);
     }
 
-    calculateWinner(boxes){
-        let moves = [
+    decideWinner(boxes){
+        const possibleMoves = [
             [0, 1, 2],
             [3, 4, 5],
             [6, 7, 8],
@@ -37,8 +49,8 @@ class Board extends Component {
             [0, 4, 8],
             [2, 4, 6]
         ];
-        for(let i=0; i< moves.length; i++){
-            let [b1, b2, b3] = moves[i];
+        for(let i=0; i< possibleMoves.length; i++){
+            let [b1, b2, b3] = possibleMoves[i];
             if(boxes[b1] && boxes[b1] === boxes[b2] && boxes[b1] === boxes[b3]){
                 return boxes[b1];
             }
@@ -51,21 +63,23 @@ class Board extends Component {
     render(){
         return(<div>
             <table>
-                <tr>
-                    <td> {this.renderBox(0)}</td>
-                    <td> {this.renderBox(1)}</td>
-                    <td> {this.renderBox(2)}</td>
-                </tr>
-                <tr>
-                    <td> {this.renderBox(3)}</td>
-                    <td>{this.renderBox(4)}</td>
-                    <td>{this.renderBox(5)}</td>
-                </tr>
-                <tr>
-                    <td> {this.renderBox(6)}</td>
-                    <td>{this.renderBox(7)}</td>
-                    <td> {this.renderBox(8)}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td> {this.renderBox(0)}</td>
+                        <td> {this.renderBox(1)}</td>
+                        <td> {this.renderBox(2)}</td>
+                    </tr>
+                    <tr>
+                        <td> {this.renderBox(3)}</td>
+                        <td>{this.renderBox(4)}</td>
+                        <td>{this.renderBox(5)}</td>
+                    </tr>
+                    <tr>
+                        <td> {this.renderBox(6)}</td>
+                        <td>{this.renderBox(7)}</td>
+                        <td> {this.renderBox(8)}</td>
+                    </tr>
+                </tbody>
             </table>
         </div>);
     }
