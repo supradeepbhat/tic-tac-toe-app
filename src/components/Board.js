@@ -5,14 +5,18 @@ class Board extends Component {
     constructor(props){
         super(props);
         this.state = {
-            boxValues: Array(9).fill(null)
+            boxValues: Array(9).fill(null),
+            isComputer: false
         }
     }
 
     handleBoxClick(i){
         let boxValues = [...this.state.boxValues];
-        boxValues[i] = 'O';
-        this.setState({boxValues: boxValues});
+        boxValues[i] = this.state.isComputer ? 'O' : 'X';
+        this.setState({
+            boxValues: boxValues,
+            isComputer: !this.state.isComputer
+        });
     }
 
     renderBox(i){
