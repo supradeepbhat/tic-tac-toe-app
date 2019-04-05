@@ -12,11 +12,14 @@ class Board extends Component {
 
     handleBoxClick(i){
         let boxValues = [...this.state.boxValues];
-        boxValues[i] = this.state.isComputer ? 'O' : 'X';
+        boxValues[i] = 'X';
+
         this.setState({
             boxValues: boxValues,
             isComputer: !this.state.isComputer
         });
+
+        //Calculate the winner
     }
 
     renderBox(i){
@@ -47,21 +50,23 @@ class Board extends Component {
 
     render(){
         return(<div>
-            <div>
-                {this.renderBox(0)}
-                {this.renderBox(1)}
-                {this.renderBox(2)}
-            </div>
-            <div>
-                {this.renderBox(3)}
-                {this.renderBox(4)}
-                {this.renderBox(5)}
-            </div>
-            <div>
-                {this.renderBox(6)}
-                {this.renderBox(7)}
-                {this.renderBox(8)}
-            </div>
+            <table>
+                <tr>
+                    <td> {this.renderBox(0)}</td>
+                    <td> {this.renderBox(1)}</td>
+                    <td> {this.renderBox(2)}</td>
+                </tr>
+                <tr>
+                    <td> {this.renderBox(3)}</td>
+                    <td>{this.renderBox(4)}</td>
+                    <td>{this.renderBox(5)}</td>
+                </tr>
+                <tr>
+                    <td> {this.renderBox(6)}</td>
+                    <td>{this.renderBox(7)}</td>
+                    <td> {this.renderBox(8)}</td>
+                </tr>
+            </table>
         </div>);
     }
 }
