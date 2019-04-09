@@ -24,7 +24,7 @@ Launches the test runner in the interactive watch mode.<br>
 2. The application hierarchy is App -> TicTacToe -> Board -> Box
 3. Box Component represents individual boxes in the game.
 4. Board represents actual tic-tac-toe game. This will use Game.js to perform game operations like checking the winner, performing computer turn etc.
-5. TicTacToe holds User Form and Bord
+5. TicTacToe holds User Form and Board
 6. App holds TicTacToe
 
 ### Performing Computer Turn
