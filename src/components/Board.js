@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
 import Box from './Box';
+import Game from './Game';
 
 class Board extends Component {
     constructor(props){
         super(props);
         this.state = {
             boxValues: Array(9).fill(null),
+            stop: false,
             winner: null
         }
     }
 
     handleBoxClick(i){
-        if(!this.state.winner){
+        if(!this.state.stop && !this.state.winner){
             let boxValues = [...this.state.boxValues];
             boxValues[i] = 'X';
-            let winner = this.decideWinner(boxValues);
+            let winner = Game.decideWinner(boxValues);
 
-           if(!winner){
-                let random = Math.floor(Math.random()*10);
-                while(boxValues[random]){
-                    random = Math.floor(Math.random()*10);
-                }
-                boxValues[random] = 'O';
-                winner = this.decideWinner(boxValues);
+            //Update the logic to check draw
+            //if no winner and the no boxes left to fill
 
-            }
+            let emptyBoxes = Game.availableBoxes(boxValues);
+
+           if(!winner && emptyBoxes.length > 0){
+                let computerChoice = Game.performComputerTurn(boxValues);
+                boxValues[computerChoice] = 'O';
+                winner = Game.decideWinner(boxValues);
+           } else if(!winner && emptyBoxes.length === 0){
+               this.setState({
+                   showStop: false
+               })
+               winner = 'D';
+           }
 
             this.setState({
                 boxValues: boxValues,
@@ -34,53 +42,69 @@ class Board extends Component {
 
     }
 
+    onStop(){
+        this.setState({
+            stop: !this.state.stop
+        })
+    }
+
     renderBox(i){
         return ( <Box onClick={()=>{this.handleBoxClick(i)}} value={this.state.boxValues[i]}/>);
     }
 
-    decideWinner(boxes){
-        const possibleMoves = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6]
-        ];
-        for(let i=0; i< possibleMoves.length; i++){
-            let [b1, b2, b3] = possibleMoves[i];
-            if(boxes[b1] && boxes[b1] === boxes[b2] && boxes[b1] === boxes[b3]){
-                return boxes[b1];
-            }
-        }
-
-        return null;
-    }
-
 
     render(){
+        let winnerText = '';
+        if(this.state.winner){
+            if(this.state.winner === 'O'){
+                winnerText = 'The winner is: Computer';
+            } else if(this.state.winner === 'X'){
+                winnerText = 'The winner is: ' + this.props.user;
+            } else {
+                winnerText = 'The Match is draw';
+            }
+        }
+        let showStop = !this.state.winner ? (<button onClick={() => this.onStop()}>{!this.state.stop ? 'Stop' : 'Resume'}</button>) : null;
+        let showReset = (<button onClick={this.props.onReset}>Reset</button>);
+        let stopMessage = this.state.stop ? 'The game is stopped. To continue, press "Resume".': '';
         return(<div>
             <table>
                 <tbody>
                     <tr>
-                        <td> {this.renderBox(0)}</td>
-                        <td> {this.renderBox(1)}</td>
-                        <td> {this.renderBox(2)}</td>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>{this.renderBox(0)}</td>
+                                <td>{this.renderBox(1)}</td>
+                                <td>{this.renderBox(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>{this.renderBox(3)}</td>
+                                <td>{this.renderBox(4)}</td>
+                                <td>{this.renderBox(5)}</td>
+                            </tr>
+                            <tr>
+                                <td>{this.renderBox(6)}</td>
+                                <td>{this.renderBox(7)}</td>
+                                <td>{this.renderBox(8)}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </tr>
                     <tr>
-                        <td> {this.renderBox(3)}</td>
-                        <td>{this.renderBox(4)}</td>
-                        <td>{this.renderBox(5)}</td>
-                    </tr>
-                    <tr>
-                        <td> {this.renderBox(6)}</td>
-                        <td>{this.renderBox(7)}</td>
-                        <td> {this.renderBox(8)}</td>
+                        <table>
+                            <tbody>
+                            <tr>{winnerText}</tr>
+                            <tr>{stopMessage}</tr>
+                            <tr>
+                                <td>{showStop}{showReset}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </tr>
                 </tbody>
             </table>
+
         </div>);
     }
 }

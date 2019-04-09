@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Board from './components/Board';
+import TicTacToe from './TicTacToe';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-            <Board/>
+            <TicTacToe/>
         </header>
       </div>
     );
