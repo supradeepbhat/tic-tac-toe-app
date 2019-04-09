@@ -15,29 +15,32 @@ class Board extends Component {
     handleBoxClick(i){
         if(!this.state.stop && !this.state.winner){
             let boxValues = [...this.state.boxValues];
-            boxValues[i] = 'X';
-            let winner = Game.decideWinner(boxValues);
+            if(!boxValues[i]){
+                boxValues[i] = 'X';
+                let winner = Game.decideWinner(boxValues);
 
-            //Update the logic to check draw
-            //if no winner and the no boxes left to fill
+                //Update the logic to check draw
+                //if no winner and the no boxes left to fill
 
-            let emptyBoxes = Game.availableBoxes(boxValues);
+                let emptyBoxes = Game.availableBoxes(boxValues);
 
-           if(!winner && emptyBoxes.length > 0){
-                let computerChoice = Game.performComputerTurn(boxValues);
-                boxValues[computerChoice] = 'O';
-                winner = Game.decideWinner(boxValues);
-           } else if(!winner && emptyBoxes.length === 0){
-               this.setState({
-                   showStop: false
-               })
-               winner = 'D';
-           }
+                if(!winner && emptyBoxes.length > 0){
+                    let computerChoice = Game.performComputerTurn(boxValues);
+                    boxValues[computerChoice] = 'O';
+                    winner = Game.decideWinner(boxValues);
+                } else if(!winner && emptyBoxes.length === 0){
+                    this.setState({
+                        showStop: false
+                    })
+                    winner = 'D';
+                }
 
-            this.setState({
-                boxValues: boxValues,
-                winner: winner
-            });
+                this.setState({
+                    boxValues: boxValues,
+                    winner: winner
+                });
+            }
+
         }
 
     }
@@ -94,6 +97,10 @@ class Board extends Component {
                     <tr>
                         <table>
                             <tbody>
+                            <tr>
+                                <td><span>{this.props.user}: X</span></td>
+                                <td>Computer: O</td>
+                            </tr>
                             <tr>{winnerText}</tr>
                             <tr>{stopMessage}</tr>
                             <tr>
