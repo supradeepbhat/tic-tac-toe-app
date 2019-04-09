@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Box from './Box';
 import Game from './Game';
 
+/**
+ * React component representing actual Tic Tac Toe Board
+ * */
 class Board extends Component {
     constructor(props){
         super(props);
@@ -15,23 +18,23 @@ class Board extends Component {
     handleBoxClick(i){
         if(!this.state.stop && !this.state.winner){
             let boxValues = [...this.state.boxValues];
+
+            //Checking whether the box is already checked
             if(!boxValues[i]){
                 boxValues[i] = 'X';
                 let winner = Game.decideWinner(boxValues);
-
-                //Update the logic to check draw
-                //if no winner and the no boxes left to fill
-
                 let emptyBoxes = Game.availableBoxes(boxValues);
 
                 if(!winner && emptyBoxes.length > 0){
+                    //Computer Turn
                     let computerChoice = Game.performComputerTurn(boxValues);
                     boxValues[computerChoice] = 'O';
                     winner = Game.decideWinner(boxValues);
                 } else if(!winner && emptyBoxes.length === 0){
+                    //Game is Draw
                     this.setState({
                         showStop: false
-                    })
+                    });
                     winner = 'D';
                 }
 
@@ -45,6 +48,7 @@ class Board extends Component {
 
     }
 
+    //Handling stop and resume
     onStop(){
         this.setState({
             stop: !this.state.stop
@@ -57,6 +61,7 @@ class Board extends Component {
 
 
     render(){
+        //Functionality to show status message
         let winnerText = '';
         if(this.state.winner){
             if(this.state.winner === 'O'){

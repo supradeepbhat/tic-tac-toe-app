@@ -4,6 +4,7 @@
  * */
 let game = {
 
+    // Checking available empty boxes
     availableBoxes: function(boxes) {
         let emptyBoxes = [];
         if(boxes){
@@ -16,6 +17,7 @@ let game = {
         return emptyBoxes;
     },
 
+    // Logic to decide result of the game
     decideWinner: function(boxes){
         const possibleMoves = [
             [0, 1, 2],
@@ -37,6 +39,7 @@ let game = {
         return null;
     },
 
+    // Logic to perform computer play
     performComputerTurn: function (boxes) {
         //find the empty boxes
         const emptyBoxes = this.availableBoxes([...boxes]);

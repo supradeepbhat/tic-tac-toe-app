@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './styles/Box.css';
 
+/**
+ * React Component representing individual boxes
+ * */
 class Box extends Component {
 
     render(){

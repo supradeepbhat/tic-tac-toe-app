@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Board from './components/Board';
 
+/**
+ * React Component which holds user form and Tic Tac Toe Game
+ * */
 class TicTacToe extends Component {
     constructor(props){
         super(props);

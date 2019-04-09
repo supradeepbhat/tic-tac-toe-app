@@ -1,10 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tic Tac Toe
 
-## Available Scripts
+This project represents Tic Tac Toe game.
 
-In the project directory, you can run:
+## To run the Game
 
-### `npm start`
+1. Clone the repository to local
+2. Run 'npm install' (Node.js must be installed in order to run)
+3. Run 'npm start'
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,57 +14,24 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### To run Test cases -  `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Game Features
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. The Game app is created using React application 'npm create-react-app tic-tac-toe-app'.
+2. The application hierarchy is App -> TicTacToe -> Board -> Box
+3. Box Component represents individual boxes in the game.
+4. Board represents actual tic-tac-toe game. This will use Game.js to perform game operations like checking the winner, performing computer turn etc.
+5. TicTacToe holds User Form and Bord
+6. App holds TicTacToe
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Performing Computer Turn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The user starts the game. Once the user makes a move, the computer will perform following steps.
 
-### `npm run eject`
+1. Checks whether a winning move exists for the computer. If exists, computer will select the winning move.
+2. If no winning move, computer checks whether user has any winning move. If user has a winning move, computer will select the same.
+3. If no winning move for user also, computer will select a random box.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
