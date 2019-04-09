@@ -1,12 +1,18 @@
+/**
+ * This file contains the functions wh
+ *
+ * */
 let game = {
 
     availableBoxes: function(boxes) {
         let emptyBoxes = [];
-        boxes.forEach((val, index) => {
-            if(!val){
-                emptyBoxes.push(index);
-            }
-        });
+        if(boxes){
+            boxes.forEach((val, index) => {
+                if(!val){
+                    emptyBoxes.push(index);
+                }
+            });
+        }
         return emptyBoxes;
     },
 
@@ -23,7 +29,7 @@ let game = {
         ];
         for(let i=0; i< possibleMoves.length; i++){
             let [b1, b2, b3] = possibleMoves[i];
-            if(boxes[b1] && boxes[b1] === boxes[b2] && boxes[b1] === boxes[b3]){
+            if(boxes && boxes[b1] && boxes[b1] === boxes[b2] && boxes[b1] === boxes[b3]){
                 return boxes[b1];
             }
         }
